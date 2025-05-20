@@ -41,8 +41,61 @@ function App() {
     }
   };
 
+  const handleStart = async () => {
+    setStatus("Iniciando . . .");
+    try {
+      const response = await fetch("http://192.168.0.184/start", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      if (response.ok) {
+        setStatus("Ok");
+      } else {
+        setStatus("Error al iniciar.");
+      }
+    } catch (error) {
+      setStatus("No se pudo iniciar");
+    }
+  };
+
+  const handleStop = async () => {
+    setStatus("Deteniendo . . .");
+    try {
+      const response = await fetch("http://192.168.0.184/stop", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      if (response.ok) {
+        setStatus("Ok");
+      } else {
+        setStatus("Error al detener.");
+      }
+    } catch (error) {
+      setStatus("No se pudo detener");
+    }
+  };
+
   return (
     <Container className="p-4">
+      <Row>
+        <h1 style={{ textAlign: "center" }}>Detección de movimientos</h1>
+        <Row className="justify-content-center">
+          <Col xs="auto">
+            <div className="d-flex gap-2 justify-content-center">
+              <Button onClick={handleStart} variant="success">
+                Iniciar programa
+              </Button>
+              <Button onClick={handleStop} variant="danger">
+                Detener programa
+              </Button>
+            </div>
+          </Col>
+        </Row>
+      </Row>
       <h1 className="text-2xl font-bold mb-4">Selecciona un Ejercicio</h1>
       <Row xs={1} sm={2} md={3} className="g-4">
         {ejercicios.map((ej) => (
