@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/exercise-motion-tracker-front/static/css/main.9d18af75.css",
-    "main.js": "/exercise-motion-tracker-front/static/js/main.597ae58f.js",
+    "main.js": "/exercise-motion-tracker-front/static/js/main.e63b59ec.js",
     "static/js/453.14f666ef.chunk.js": "/exercise-motion-tracker-front/static/js/453.14f666ef.chunk.js",
     "index.html": "/exercise-motion-tracker-front/index.html",
     "main.9d18af75.css.map": "/exercise-motion-tracker-front/static/css/main.9d18af75.css.map",
-    "main.597ae58f.js.map": "/exercise-motion-tracker-front/static/js/main.597ae58f.js.map",
+    "main.e63b59ec.js.map": "/exercise-motion-tracker-front/static/js/main.e63b59ec.js.map",
     "453.14f666ef.chunk.js.map": "/exercise-motion-tracker-front/static/js/453.14f666ef.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9d18af75.css",
-    "static/js/main.597ae58f.js"
+    "static/js/main.e63b59ec.js"
   ]
 }
