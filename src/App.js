@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 
 const ejercicios = [
   "press_de_pecho",
@@ -20,11 +20,14 @@ const ejercicios = [
 function App() {
   const [selected, setSelected] = useState(null);
   const [status, setStatus] = useState("");
+  const [esp32Ip, setEsp32Ip] = useState("192.168.0.184");
+
+  const buildUrl = (endpoint) => `http://${esp32Ip}/${endpoint}`;
 
   const sendToESP32 = async (exercise) => {
     setStatus("Enviando...");
     try {
-      const response = await fetch("http://192.168.0.184/ejercicio", {
+      const response = await fetch(buildUrl("ejercicio"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,11 +47,11 @@ function App() {
   const handleStart = async () => {
     setStatus("Iniciando . . .");
     try {
-      const response = await fetch("http://192.168.0.184/start", {
+      const response = await fetch(buildUrl("start"), {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-        }
+        },
       });
       if (response.ok) {
         setStatus("Ok");
@@ -63,11 +66,11 @@ function App() {
   const handleStop = async () => {
     setStatus("Deteniendo . . .");
     try {
-      const response = await fetch("http://192.168.0.184/stop", {
+      const response = await fetch(buildUrl("stop"), {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-        }
+        },
       });
       if (response.ok) {
         setStatus("Ok");
@@ -83,6 +86,22 @@ function App() {
     <Container className="p-4">
       <Row>
         <h1 style={{ textAlign: "center" }}>Detección de movimientos</h1>
+
+        {/* Input para ingresar la IP */}
+        <Row className="mb-3 justify-content-center">
+          <Col xs="auto">
+            <Form.Group>
+              <Form.Label>IP del ESP32</Form.Label>
+              <Form.Control
+                type="text"
+                value={esp32Ip}
+                onChange={(e) => setEsp32Ip(e.target.value)}
+                placeholder="Ej: 192.168.0.184"
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+
         <Row className="justify-content-center">
           <Col xs="auto">
             <div className="d-flex gap-2 justify-content-center">
@@ -96,6 +115,7 @@ function App() {
           </Col>
         </Row>
       </Row>
+
       <h1 className="text-2xl font-bold mb-4">Selecciona un Ejercicio</h1>
       <Row xs={1} sm={2} md={3} className="g-4">
         {ejercicios.map((ej) => (
@@ -115,14 +135,8 @@ function App() {
           </Col>
         ))}
       </Row>
+
       <div className="mt-4">
-        {/* <Button
-          className="m-2"
-          variant="warning"
-          onClick={() => calibrateSensors()}
-        >
-          Calibrar sensores
-        </Button> */}
         <Button
           variant="primary"
           disabled={!selected}
